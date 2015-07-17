@@ -59,6 +59,7 @@ public partial class YAWIPForm
 		// Widget YAWIPForm
 		this.Name = "YAWIPForm";
 		this.Title = global::Mono.Unix.Catalog.GetString ("Yet Another What Is Playing");
+		this.Icon = global::Gdk.Pixbuf.LoadFromResource ("YAWIP.OFFICIAL-ICON.png");
 		this.WindowPosition = ((global::Gtk.WindowPosition)(1));
 		// Container child YAWIPForm.Gtk.Container+ContainerChild
 		this.vboxMain = new global::Gtk.VBox ();

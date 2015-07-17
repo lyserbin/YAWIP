@@ -10,6 +10,7 @@
   <widget class="Gtk.Window" id="YAWIPForm" design-size="317 423">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Yet Another What Is Playing</property>
+    <property name="Icon">resource:YAWIP.OFFICIAL-ICON.png</property>
     <property name="WindowPosition">Center</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
     <child>
