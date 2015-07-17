@@ -6,6 +6,7 @@ using System.Threading;
 using Gtk;
 using SpotifyAPI.Local;
 using MinimalisticTelnet;
+using Gdk;
 
 public partial class YAWIPForm: Gtk.Window
 {
@@ -14,6 +15,7 @@ public partial class YAWIPForm: Gtk.Window
 	bool working = false;
 	uint istat = 0;
 	string filepath;
+	StatusIcon trayIcon;
 
 	public YAWIPForm() : base (Gtk.WindowType.Toplevel)
 	{
@@ -31,7 +33,16 @@ public partial class YAWIPForm: Gtk.Window
 		Configs.Load();
 		LoadConfigs();
 		#endregion
+
+		#region TrayIcon
+		trayIcon = new StatusIcon (this.Icon);
+		trayIcon.Tooltip = "Yet Another What Is Playing";
+		trayIcon.Visible = true;
+		trayIcon.Activate += OnTrayIconClick;
+		#endregion
 	}
+
+	#region Events
 
 	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
 	{
@@ -48,23 +59,9 @@ public partial class YAWIPForm: Gtk.Window
 
 		if (worker != null && worker.IsAlive)
 			worker.Abort ();
+		trayIcon.Dispose ();
 		Application.Quit ();
 		a.RetVal = true;
-	}
-
-	void LoadConfigs()
-	{
-		txtFilePath.Text = Configs.FilePath;
-		spinRefreshRate.Value = Configs.RefreshRate;
-		txtVlcHostname.Text = Configs.VlcHostname;
-		spinVlcPort.Value = Configs.VlcPort;
-		txtVlcPassword.Text = Configs.VlcPassword;
-	}
-
-	protected void ResetConfigs (object sender, EventArgs e)
-	{
-		Configs.Reset ();
-		LoadConfigs ();
 	}
 
 	protected void OnCommandClick (object sender, EventArgs e)
@@ -80,6 +77,37 @@ public partial class YAWIPForm: Gtk.Window
 			SetStatus ("Starting {0} worker", currentWork.ToString());
 		}
 	}
+
+	protected void OnTrayIconClick(object sender, EventArgs e)
+	{
+		this.Visible = !this.Visible;
+		if (this.Visible)
+			this.Deiconify ();
+	}
+
+	protected void OnWindowStateEvent(object sender, WindowStateEventArgs e)
+	{
+		if (e.Event.ChangedMask == WindowState.Iconified && e.Event.NewWindowState == WindowState.Iconified)
+			this.Visible = false;
+	}
+
+	protected void ResetConfigs (object sender, EventArgs e)
+	{
+		Configs.Reset ();
+		LoadConfigs ();
+	}
+
+	#endregion
+
+	void LoadConfigs()
+	{
+		txtFilePath.Text = Configs.FilePath;
+		spinRefreshRate.Value = Configs.RefreshRate;
+		txtVlcHostname.Text = Configs.VlcHostname;
+		spinVlcPort.Value = Configs.VlcPort;
+		txtVlcPassword.Text = Configs.VlcPassword;
+	}
+
 
 	void stop()
 	{
@@ -177,4 +205,6 @@ public partial class YAWIPForm: Gtk.Window
 		if(istat != 0)
 			statusbar.Pop (--istat);
 	}
+
+
 }

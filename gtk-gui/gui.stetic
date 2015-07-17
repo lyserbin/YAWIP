@@ -13,6 +13,7 @@
     <property name="Icon">resource:YAWIP.OFFICIAL-ICON.png</property>
     <property name="WindowPosition">Center</property>
     <signal name="DeleteEvent" handler="OnDeleteEvent" />
+    <signal name="WindowStateEvent" handler="OnWindowStateEvent" />
     <child>
       <widget class="Gtk.VBox" id="vboxMain">
         <property name="MemberName" />

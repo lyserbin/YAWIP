@@ -320,6 +320,7 @@ public partial class YAWIPForm
 		this.DefaultHeight = 423;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
+		this.WindowStateEvent += new global::Gtk.WindowStateEventHandler (this.OnWindowStateEvent);
 		this.btnCommand.Clicked += new global::System.EventHandler (this.OnCommandClick);
 		this.btnReset.Clicked += new global::System.EventHandler (this.ResetConfigs);
 	}
