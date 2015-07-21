@@ -3,13 +3,22 @@ using System;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
+using System.Text;
 using Gtk;
-using SpotifyAPI.Local;
-using MinimalisticTelnet;
 using Gdk;
+using SpotifyAPI.Local;
+using SpotifyAPI.Local.Models;
+
+static class FormatterCodes
+{
+	internal static readonly string Title = Encoding.Default.GetString(new byte[] {0xFF, 0x01});
+	internal static readonly string Artist = Encoding.Default.GetString(new byte[] {0xFF, 0x02});
+	internal static readonly string Album = Encoding.Default.GetString(new byte[] {0xFF, 0x03});
+}
 
 public partial class YAWIPForm: Gtk.Window
 {
+	SpotifyLocalAPI spotify;
 	Thread worker;
 	WorkType currentWork;
 	bool working = false;
@@ -27,6 +36,7 @@ public partial class YAWIPForm: Gtk.Window
 		txtVlcHostname.Xalign = 1.0F;
 		spinVlcPort.Xalign = 1.0F;
 		txtVlcPassword.Xalign = 1.0F;
+		txtSpotifyFormat.Xalign = 1.0F;
 		#endregion
 
 		#region Configs
@@ -52,13 +62,12 @@ public partial class YAWIPForm: Gtk.Window
 		Configs.VlcHostname = txtVlcHostname.Text;
 		Configs.VlcPort = (uint)spinVlcPort.Value;
 		Configs.VlcPassword = txtVlcPassword.Text;
+		Configs.SpotifyFormat = txtSpotifyFormat.Text;
 
 		Configs.Save ();
 		#endregion
 
-
-		if (worker != null && worker.IsAlive)
-			worker.Abort ();
+		stop ();	
 		trayIcon.Dispose ();
 		Application.Quit ();
 		a.RetVal = true;
@@ -106,6 +115,7 @@ public partial class YAWIPForm: Gtk.Window
 		txtVlcHostname.Text = Configs.VlcHostname;
 		spinVlcPort.Value = Configs.VlcPort;
 		txtVlcPassword.Text = Configs.VlcPassword;
+		txtSpotifyFormat.Text = Configs.SpotifyFormat;
 	}
 
 
@@ -137,7 +147,7 @@ public partial class YAWIPForm: Gtk.Window
 	void work()
 	{
 		uint refreshrate = (uint)spinRefreshRate.Value;
-		string tmp, currentsong;
+		string tmp, currentsong = string.Empty;
 
 		switch (currentWork) {
 		case WorkType.VLC:
@@ -162,7 +172,11 @@ public partial class YAWIPForm: Gtk.Window
 				while (true)
 				{
 					tmp = conn.GetCurrentSongTitle();
-					File.WriteAllText(filepath, tmp);
+					if(tmp!= currentsong)
+					{
+						currentsong = tmp;
+						File.WriteAllText(filepath, tmp);
+					}
 					Thread.Sleep ((int)refreshrate);
 				}
 			}
@@ -176,9 +190,52 @@ public partial class YAWIPForm: Gtk.Window
 			#endregion
 		case WorkType.Spotify:
 			#region Spotify
+			spotify = new SpotifyLocalAPI();
+
+			if (!SpotifyLocalAPI.IsSpotifyRunning())
+			{
+				Application.Invoke(delegate{ SetStatus("Spotify isn't running!");});
+				stop();
+			}
+			else if (!SpotifyLocalAPI.IsSpotifyWebHelperRunning())
+			{
+				Application.Invoke(delegate{ SetStatus("SpotifyWebHelper isn't running!");});
+				stop();
+			}
+			else if (!spotify.Connect())
+			{
+				Application.Invoke(delegate{ SetStatus("Can't connect to the SpotifyWebHelper.");});
+				stop();
+			}
+
 			Application.Invoke(delegate{ SetStatus("Spotify worker running");});
+
 			while (true)
 			{
+				StatusResponse status =  spotify.GetStatus();
+				if(status != null && status.Track != null)
+				{
+					tmp = status.Track.TrackResource.Uri;
+
+					if(tmp != currentsong)
+					{
+						string format, formatted;
+
+						currentsong = tmp;
+
+						format = txtSpotifyFormat.Text;
+						format = format.Replace("%t", FormatterCodes.Title);
+						format = format.Replace("%a", FormatterCodes.Artist);
+						format = format.Replace("%A", FormatterCodes.Album);
+
+						formatted = format.Replace(FormatterCodes.Title, status.Track.TrackResource.Name);
+						formatted = formatted.Replace(FormatterCodes.Artist, status.Track.ArtistResource.Name);
+						formatted = formatted.Replace(FormatterCodes.Album, status.Track.AlbumResource.Name);
+
+						File.WriteAllText(filepath, formatted);
+					}
+				}
+
 				Thread.Sleep ((int)refreshrate);
 			}
 			#endregion
@@ -188,6 +245,7 @@ public partial class YAWIPForm: Gtk.Window
 			break;
 		}
 	}
+
 
 	void SetStatus(string format, params object[] objs)
 	{
@@ -205,6 +263,4 @@ public partial class YAWIPForm: Gtk.Window
 		if(istat != 0)
 			statusbar.Pop (--istat);
 	}
-
-
 }

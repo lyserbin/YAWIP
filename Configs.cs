@@ -8,6 +8,7 @@ namespace YAWIP
 		public readonly uint RefreshRate = 3000;
 		public readonly string VlcHostname = "127.0.0.1";
 		public readonly uint VlcPort = 4212;
+		public readonly string SpotifyFormat = "%t";
 
 		internal DefaultConfigs()
 		{
@@ -22,6 +23,7 @@ namespace YAWIP
 		public static string VlcHostname { get; set; }
 		public static uint VlcPort { get; set; }
 		public static string VlcPassword { get; set; }
+		public static string SpotifyFormat { get; set; }
 		public static DefaultConfigs Defaults = new DefaultConfigs();
 
 		public static void Load()
@@ -33,6 +35,7 @@ namespace YAWIP
 			VlcHostname = !string.IsNullOrWhiteSpace (appSettings ["VlcHostname"]) ? appSettings["VlcHostname"] : Defaults.VlcHostname;
 			VlcPort = uint.TryParse(appSettings ["VlcPort"], out tmp) && isValidVlcPort(tmp) ? tmp : Defaults.VlcPort;
 			VlcPassword = appSettings ["VlcPassword"];
+			SpotifyFormat = !string.IsNullOrEmpty (appSettings ["SpotifyFormat"]) ? appSettings ["SpotifyFormat"] : Defaults.SpotifyFormat;
 		}
 
 		public static void Save()
@@ -55,11 +58,15 @@ namespace YAWIP
 			if (appSettings ["VlcPassword"] == null)
 				appSettings.Add ("VlcPassword", VlcPassword);
 
+			if(appSettings["SpotifyFormat"] == null)
+				appSettings.Add("SpotifyFormat", SpotifyFormat);
+
 			appSettings ["FilePath"].Value = FilePath;
 			appSettings ["RefreshRate"].Value = RefreshRate.ToString();
 			appSettings ["VlcHostname"].Value = VlcHostname;
 			appSettings ["VlcPort"].Value = VlcPort.ToString();
 			appSettings ["VlcPassword"].Value = VlcPassword;
+			appSettings ["SpotifyFormat"].Value = SpotifyFormat;
 
 			configFile.Save (ConfigurationSaveMode.Full);
 		}
@@ -71,6 +78,7 @@ namespace YAWIP
 			VlcHostname = Defaults.VlcHostname;
 			VlcPort = Defaults.VlcPort;
 			VlcPassword = string.Empty;
+			SpotifyFormat = Defaults.SpotifyFormat;
 		}
 
 		static bool isValidRefreshRate(uint refreshrate)

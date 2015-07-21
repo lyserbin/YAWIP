@@ -41,7 +41,31 @@ public partial class YAWIPForm
 	
 	private global::Gtk.Label lblVLC;
 	
-	private global::Gtk.Table tblSpotify;
+	private global::Gtk.VBox vboxSpotify;
+	
+	private global::Gtk.Label lblSpotifyExpl;
+	
+	private global::Gtk.HBox hboxSpotifyFormat;
+	
+	private global::Gtk.Label lblFormat;
+	
+	private global::Gtk.Entry txtSpotifyFormat;
+	
+	private global::Gtk.Label lblSpotifyLegend;
+	
+	private global::Gtk.Table tblSpotifyLegend;
+	
+	private global::Gtk.Label lblSpotifyLegendAlbumArg;
+	
+	private global::Gtk.Label lblSpotifyLegendArtist;
+	
+	private global::Gtk.Label lblSpotifyLegendArtistArg;
+	
+	private global::Gtk.Label lblSpotifyLegendAuthor1;
+	
+	private global::Gtk.Label lblSpotifyLegendTitle;
+	
+	private global::Gtk.Label lblSpotifyLegendTitleArg;
 	
 	private global::Gtk.Label lblSpotify;
 	
@@ -68,7 +92,6 @@ public partial class YAWIPForm
 		// Container child vboxMain.Gtk.Box+BoxChild
 		this.frmGeneral = new global::Gtk.Frame ();
 		this.frmGeneral.Name = "frmGeneral";
-		this.frmGeneral.ShadowType = ((global::Gtk.ShadowType)(1));
 		this.frmGeneral.BorderWidth = ((uint)(12));
 		// Container child frmGeneral.Gtk.Container+ContainerChild
 		this.tblGeneral = new global::Gtk.Table (((uint)(2)), ((uint)(2)), false);
@@ -126,7 +149,7 @@ public partial class YAWIPForm
 		this.frmGeneral.Add (this.tblGeneral);
 		this.lblGeneral = new global::Gtk.Label ();
 		this.lblGeneral.Name = "lblGeneral";
-		this.lblGeneral.LabelProp = global::Mono.Unix.Catalog.GetString ("<i>General Settings</i>");
+		this.lblGeneral.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>General Settings</b>");
 		this.lblGeneral.UseMarkup = true;
 		this.frmGeneral.LabelWidget = this.lblGeneral;
 		this.vboxMain.Add (this.frmGeneral);
@@ -138,7 +161,7 @@ public partial class YAWIPForm
 		this.notebook = new global::Gtk.Notebook ();
 		this.notebook.CanFocus = true;
 		this.notebook.Name = "notebook";
-		this.notebook.CurrentPage = 0;
+		this.notebook.CurrentPage = 1;
 		this.notebook.BorderWidth = ((uint)(9));
 		// Container child notebook.Gtk.Notebook+NotebookChild
 		this.vboxVlc = new global::Gtk.VBox ();
@@ -247,22 +270,140 @@ public partial class YAWIPForm
 		this.notebook.SetTabLabel (this.vboxVlc, this.lblVLC);
 		this.lblVLC.ShowAll ();
 		// Container child notebook.Gtk.Notebook+NotebookChild
-		this.tblSpotify = new global::Gtk.Table (((uint)(3)), ((uint)(3)), false);
-		this.tblSpotify.Name = "tblSpotify";
-		this.tblSpotify.RowSpacing = ((uint)(6));
-		this.tblSpotify.ColumnSpacing = ((uint)(6));
-		this.notebook.Add (this.tblSpotify);
-		global::Gtk.Notebook.NotebookChild w16 = ((global::Gtk.Notebook.NotebookChild)(this.notebook [this.tblSpotify]));
-		w16.Position = 1;
+		this.vboxSpotify = new global::Gtk.VBox ();
+		this.vboxSpotify.Name = "vboxSpotify";
+		this.vboxSpotify.Spacing = 6;
+		this.vboxSpotify.BorderWidth = ((uint)(3));
+		// Container child vboxSpotify.Gtk.Box+BoxChild
+		this.lblSpotifyExpl = new global::Gtk.Label ();
+		this.lblSpotifyExpl.Name = "lblSpotifyExpl";
+		this.lblSpotifyExpl.LabelProp = global::Mono.Unix.Catalog.GetString ("<i>Setup here how to display songs on spotify</i>");
+		this.lblSpotifyExpl.UseMarkup = true;
+		this.vboxSpotify.Add (this.lblSpotifyExpl);
+		global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vboxSpotify [this.lblSpotifyExpl]));
+		w16.Position = 0;
+		w16.Expand = false;
+		w16.Fill = false;
+		// Container child vboxSpotify.Gtk.Box+BoxChild
+		this.hboxSpotifyFormat = new global::Gtk.HBox ();
+		this.hboxSpotifyFormat.Name = "hboxSpotifyFormat";
+		this.hboxSpotifyFormat.Spacing = 6;
+		// Container child hboxSpotifyFormat.Gtk.Box+BoxChild
+		this.lblFormat = new global::Gtk.Label ();
+		this.lblFormat.Name = "lblFormat";
+		this.lblFormat.LabelProp = global::Mono.Unix.Catalog.GetString ("Format:");
+		this.hboxSpotifyFormat.Add (this.lblFormat);
+		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hboxSpotifyFormat [this.lblFormat]));
+		w17.Position = 0;
+		w17.Expand = false;
+		w17.Fill = false;
+		// Container child hboxSpotifyFormat.Gtk.Box+BoxChild
+		this.txtSpotifyFormat = new global::Gtk.Entry ();
+		this.txtSpotifyFormat.CanFocus = true;
+		this.txtSpotifyFormat.Name = "txtSpotifyFormat";
+		this.txtSpotifyFormat.IsEditable = true;
+		this.txtSpotifyFormat.InvisibleChar = '●';
+		this.hboxSpotifyFormat.Add (this.txtSpotifyFormat);
+		global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.hboxSpotifyFormat [this.txtSpotifyFormat]));
+		w18.Position = 1;
+		this.vboxSpotify.Add (this.hboxSpotifyFormat);
+		global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vboxSpotify [this.hboxSpotifyFormat]));
+		w19.Position = 1;
+		w19.Expand = false;
+		w19.Fill = false;
+		// Container child vboxSpotify.Gtk.Box+BoxChild
+		this.lblSpotifyLegend = new global::Gtk.Label ();
+		this.lblSpotifyLegend.Name = "lblSpotifyLegend";
+		this.lblSpotifyLegend.LabelProp = global::Mono.Unix.Catalog.GetString ("<b>Legend</b>");
+		this.lblSpotifyLegend.UseMarkup = true;
+		this.vboxSpotify.Add (this.lblSpotifyLegend);
+		global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vboxSpotify [this.lblSpotifyLegend]));
+		w20.Position = 2;
+		w20.Expand = false;
+		w20.Fill = false;
+		// Container child vboxSpotify.Gtk.Box+BoxChild
+		this.tblSpotifyLegend = new global::Gtk.Table (((uint)(3)), ((uint)(2)), false);
+		this.tblSpotifyLegend.Name = "tblSpotifyLegend";
+		this.tblSpotifyLegend.RowSpacing = ((uint)(6));
+		this.tblSpotifyLegend.ColumnSpacing = ((uint)(6));
+		// Container child tblSpotifyLegend.Gtk.Table+TableChild
+		this.lblSpotifyLegendAlbumArg = new global::Gtk.Label ();
+		this.lblSpotifyLegendAlbumArg.Name = "lblSpotifyLegendAlbumArg";
+		this.lblSpotifyLegendAlbumArg.LabelProp = global::Mono.Unix.Catalog.GetString ("%A");
+		this.tblSpotifyLegend.Add (this.lblSpotifyLegendAlbumArg);
+		global::Gtk.Table.TableChild w21 = ((global::Gtk.Table.TableChild)(this.tblSpotifyLegend [this.lblSpotifyLegendAlbumArg]));
+		w21.TopAttach = ((uint)(2));
+		w21.BottomAttach = ((uint)(3));
+		w21.XOptions = ((global::Gtk.AttachOptions)(4));
+		w21.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child tblSpotifyLegend.Gtk.Table+TableChild
+		this.lblSpotifyLegendArtist = new global::Gtk.Label ();
+		this.lblSpotifyLegendArtist.Name = "lblSpotifyLegendArtist";
+		this.lblSpotifyLegendArtist.LabelProp = global::Mono.Unix.Catalog.GetString ("The artist of the currently playing song");
+		this.tblSpotifyLegend.Add (this.lblSpotifyLegendArtist);
+		global::Gtk.Table.TableChild w22 = ((global::Gtk.Table.TableChild)(this.tblSpotifyLegend [this.lblSpotifyLegendArtist]));
+		w22.TopAttach = ((uint)(1));
+		w22.BottomAttach = ((uint)(2));
+		w22.LeftAttach = ((uint)(1));
+		w22.RightAttach = ((uint)(2));
+		w22.XOptions = ((global::Gtk.AttachOptions)(4));
+		w22.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child tblSpotifyLegend.Gtk.Table+TableChild
+		this.lblSpotifyLegendArtistArg = new global::Gtk.Label ();
+		this.lblSpotifyLegendArtistArg.Name = "lblSpotifyLegendArtistArg";
+		this.lblSpotifyLegendArtistArg.LabelProp = global::Mono.Unix.Catalog.GetString ("%a");
+		this.tblSpotifyLegend.Add (this.lblSpotifyLegendArtistArg);
+		global::Gtk.Table.TableChild w23 = ((global::Gtk.Table.TableChild)(this.tblSpotifyLegend [this.lblSpotifyLegendArtistArg]));
+		w23.TopAttach = ((uint)(1));
+		w23.BottomAttach = ((uint)(2));
+		w23.XOptions = ((global::Gtk.AttachOptions)(4));
+		w23.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child tblSpotifyLegend.Gtk.Table+TableChild
+		this.lblSpotifyLegendAuthor1 = new global::Gtk.Label ();
+		this.lblSpotifyLegendAuthor1.Name = "lblSpotifyLegendAuthor1";
+		this.lblSpotifyLegendAuthor1.LabelProp = global::Mono.Unix.Catalog.GetString ("The album of the currently playing song");
+		this.tblSpotifyLegend.Add (this.lblSpotifyLegendAuthor1);
+		global::Gtk.Table.TableChild w24 = ((global::Gtk.Table.TableChild)(this.tblSpotifyLegend [this.lblSpotifyLegendAuthor1]));
+		w24.TopAttach = ((uint)(2));
+		w24.BottomAttach = ((uint)(3));
+		w24.LeftAttach = ((uint)(1));
+		w24.RightAttach = ((uint)(2));
+		w24.XOptions = ((global::Gtk.AttachOptions)(4));
+		w24.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child tblSpotifyLegend.Gtk.Table+TableChild
+		this.lblSpotifyLegendTitle = new global::Gtk.Label ();
+		this.lblSpotifyLegendTitle.Name = "lblSpotifyLegendTitle";
+		this.lblSpotifyLegendTitle.LabelProp = global::Mono.Unix.Catalog.GetString ("The title of the currently playing song");
+		this.tblSpotifyLegend.Add (this.lblSpotifyLegendTitle);
+		global::Gtk.Table.TableChild w25 = ((global::Gtk.Table.TableChild)(this.tblSpotifyLegend [this.lblSpotifyLegendTitle]));
+		w25.LeftAttach = ((uint)(1));
+		w25.RightAttach = ((uint)(2));
+		w25.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child tblSpotifyLegend.Gtk.Table+TableChild
+		this.lblSpotifyLegendTitleArg = new global::Gtk.Label ();
+		this.lblSpotifyLegendTitleArg.Name = "lblSpotifyLegendTitleArg";
+		this.lblSpotifyLegendTitleArg.LabelProp = global::Mono.Unix.Catalog.GetString ("%t");
+		this.tblSpotifyLegend.Add (this.lblSpotifyLegendTitleArg);
+		global::Gtk.Table.TableChild w26 = ((global::Gtk.Table.TableChild)(this.tblSpotifyLegend [this.lblSpotifyLegendTitleArg]));
+		w26.XOptions = ((global::Gtk.AttachOptions)(4));
+		w26.YOptions = ((global::Gtk.AttachOptions)(4));
+		this.vboxSpotify.Add (this.tblSpotifyLegend);
+		global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.vboxSpotify [this.tblSpotifyLegend]));
+		w27.Position = 3;
+		w27.Expand = false;
+		w27.Fill = false;
+		this.notebook.Add (this.vboxSpotify);
+		global::Gtk.Notebook.NotebookChild w28 = ((global::Gtk.Notebook.NotebookChild)(this.notebook [this.vboxSpotify]));
+		w28.Position = 1;
 		// Notebook tab
 		this.lblSpotify = new global::Gtk.Label ();
 		this.lblSpotify.Name = "lblSpotify";
 		this.lblSpotify.LabelProp = global::Mono.Unix.Catalog.GetString ("Spotify");
-		this.notebook.SetTabLabel (this.tblSpotify, this.lblSpotify);
+		this.notebook.SetTabLabel (this.vboxSpotify, this.lblSpotify);
 		this.lblSpotify.ShowAll ();
 		this.vboxMain.Add (this.notebook);
-		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vboxMain [this.notebook]));
-		w17.Position = 1;
+		global::Gtk.Box.BoxChild w29 = ((global::Gtk.Box.BoxChild)(this.vboxMain [this.notebook]));
+		w29.Position = 1;
 		// Container child vboxMain.Gtk.Box+BoxChild
 		this.hboxCommands = new global::Gtk.HBox ();
 		this.hboxCommands.Name = "hboxCommands";
@@ -275,10 +416,10 @@ public partial class YAWIPForm
 		this.btnCommand.BorderWidth = ((uint)(9));
 		this.btnCommand.Label = global::Mono.Unix.Catalog.GetString ("Start");
 		this.hboxCommands.Add (this.btnCommand);
-		global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.hboxCommands [this.btnCommand]));
-		w18.Position = 0;
-		w18.Expand = false;
-		w18.Fill = false;
+		global::Gtk.Box.BoxChild w30 = ((global::Gtk.Box.BoxChild)(this.hboxCommands [this.btnCommand]));
+		w30.Position = 0;
+		w30.Expand = false;
+		w30.Fill = false;
 		// Container child hboxCommands.Gtk.Box+BoxChild
 		this.btnReset = new global::Gtk.Button ();
 		this.btnReset.CanFocus = true;
@@ -286,38 +427,38 @@ public partial class YAWIPForm
 		this.btnReset.UseUnderline = true;
 		this.btnReset.BorderWidth = ((uint)(9));
 		this.btnReset.Label = global::Mono.Unix.Catalog.GetString ("_Reset");
-		global::Gtk.Image w19 = new global::Gtk.Image ();
-		w19.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-clear", global::Gtk.IconSize.Menu);
-		this.btnReset.Image = w19;
+		global::Gtk.Image w31 = new global::Gtk.Image ();
+		w31.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-clear", global::Gtk.IconSize.Menu);
+		this.btnReset.Image = w31;
 		this.hboxCommands.Add (this.btnReset);
-		global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hboxCommands [this.btnReset]));
-		w20.PackType = ((global::Gtk.PackType)(1));
-		w20.Position = 2;
-		w20.Expand = false;
-		w20.Fill = false;
+		global::Gtk.Box.BoxChild w32 = ((global::Gtk.Box.BoxChild)(this.hboxCommands [this.btnReset]));
+		w32.PackType = ((global::Gtk.PackType)(1));
+		w32.Position = 2;
+		w32.Expand = false;
+		w32.Fill = false;
 		this.vboxMain.Add (this.hboxCommands);
-		global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.vboxMain [this.hboxCommands]));
-		w21.Position = 2;
-		w21.Expand = false;
-		w21.Fill = false;
+		global::Gtk.Box.BoxChild w33 = ((global::Gtk.Box.BoxChild)(this.vboxMain [this.hboxCommands]));
+		w33.Position = 2;
+		w33.Expand = false;
+		w33.Fill = false;
 		// Container child vboxMain.Gtk.Box+BoxChild
 		this.statusbar = new global::Gtk.Statusbar ();
-		global::Gtk.Tooltips w22 = new Gtk.Tooltips ();
-		w22.SetTip (this.statusbar, "The status of YAWIP", "The status of YAWIP");
+		global::Gtk.Tooltips w34 = new Gtk.Tooltips ();
+		w34.SetTip (this.statusbar, "The status of YAWIP", "The status of YAWIP");
 		this.statusbar.Name = "statusbar";
 		this.statusbar.Spacing = 6;
 		this.statusbar.HasResizeGrip = false;
 		this.vboxMain.Add (this.statusbar);
-		global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vboxMain [this.statusbar]));
-		w23.Position = 3;
-		w23.Expand = false;
-		w23.Fill = false;
+		global::Gtk.Box.BoxChild w35 = ((global::Gtk.Box.BoxChild)(this.vboxMain [this.statusbar]));
+		w35.Position = 3;
+		w35.Expand = false;
+		w35.Fill = false;
 		this.Add (this.vboxMain);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
 		}
-		this.DefaultWidth = 317;
-		this.DefaultHeight = 423;
+		this.DefaultWidth = 294;
+		this.DefaultHeight = 367;
 		this.Show ();
 		this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 		this.WindowStateEvent += new global::Gtk.WindowStateEventHandler (this.OnWindowStateEvent);
